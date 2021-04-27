@@ -91,6 +91,7 @@ namespace PdfiumViewer.Demo
             this.txt = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.splitter1 = new System.Windows.Forms.Splitter();
+            this.convertToImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -176,9 +177,10 @@ namespace PdfiumViewer.Demo
             this.toolStripMenuItem5,
             this.showRangeOfPagesToolStripMenuItem,
             this.toolStripMenuItem6,
-            this.informationToolStripMenuItem});
+            this.informationToolStripMenuItem,
+            this.convertToImageToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.toolsToolStripMenuItem.Text = "&Tools";
             // 
             // findToolStripMenuItem
@@ -334,6 +336,7 @@ namespace PdfiumViewer.Demo
             // 
             // _page
             // 
+            this._page.Font = new System.Drawing.Font("Segoe UI", 9F);
             this._page.Name = "_page";
             this._page.Size = new System.Drawing.Size(100, 25);
             this._page.KeyDown += new System.Windows.Forms.KeyEventHandler(this._page_KeyDown);
@@ -376,6 +379,7 @@ namespace PdfiumViewer.Demo
             // 
             // _zoom
             // 
+            this._zoom.Font = new System.Drawing.Font("Segoe UI", 9F);
             this._zoom.Name = "_zoom";
             this._zoom.Size = new System.Drawing.Size(100, 25);
             this._zoom.KeyDown += new System.Windows.Forms.KeyEventHandler(this._zoom_KeyDown);
@@ -477,7 +481,7 @@ namespace PdfiumViewer.Demo
             this._showToolbar.Image = ((System.Drawing.Image)(resources.GetObject("_showToolbar.Image")));
             this._showToolbar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._showToolbar.Name = "_showToolbar";
-            this._showToolbar.Size = new System.Drawing.Size(83, 22);
+            this._showToolbar.Size = new System.Drawing.Size(82, 22);
             this._showToolbar.Text = "Show Toolbar";
             this._showToolbar.Click += new System.EventHandler(this._hideToolbar_Click);
             // 
@@ -579,6 +583,13 @@ namespace PdfiumViewer.Demo
             this.splitter1.TabIndex = 7;
             this.splitter1.TabStop = false;
             // 
+            // convertToImageToolStripMenuItem
+            // 
+            this.convertToImageToolStripMenuItem.Name = "convertToImageToolStripMenuItem";
+            this.convertToImageToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
+            this.convertToImageToolStripMenuItem.Text = "Convert to Image";
+            this.convertToImageToolStripMenuItem.Click += new System.EventHandler(this.convertToImageToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -666,6 +677,7 @@ namespace PdfiumViewer.Demo
         private System.Windows.Forms.TextBox txt;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Splitter splitter1;
+        private System.Windows.Forms.ToolStripMenuItem convertToImageToolStripMenuItem;
     }
 }
 

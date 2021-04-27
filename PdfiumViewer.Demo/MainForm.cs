@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
+using System.IO.Compression;
 using System.Text;
 using System.Windows.Forms;
 
@@ -131,17 +133,17 @@ namespace PdfiumViewer.Demo
 
         private void renderToBitmapsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int dpiX;
-            int dpiY;
+            int dpiX = 100;
+            int dpiY = 100;
 
-            using (var form = new ExportBitmapsForm())
-            {
-                if (form.ShowDialog() != DialogResult.OK)
-                    return;
+            //using (var form = new ExportBitmapsForm())
+            //{
+            //    if (form.ShowDialog() != DialogResult.OK)
+            //        return;
 
-                dpiX = form.DpiX;
-                dpiY = form.DpiY;
-            }
+            //    dpiX = form.DpiX;
+            //    dpiY = form.DpiY;
+            //}
 
             string path;
 
@@ -154,12 +156,33 @@ namespace PdfiumViewer.Demo
             }
 
             var document = pdfViewer1.Document;
-
+            int w, h;
             for (int i = 0; i < document.PageCount; i++)
             {
-                using (var image = document.Render(i, (int)document.PageSizes[i].Width, (int)document.PageSizes[i].Height, dpiX, dpiY, false))
+                w = (int)document.PageSizes[i].Width;
+                h = (int)document.PageSizes[i].Height;
+
+                if (w >= h) w = this.Width;
+                else w = 1200;
+
+                h = (int)((w * document.PageSizes[i].Height) / document.PageSizes[i].Width);
+
+                using (var image = document.Render(i,
+                    //(int)document.PageSizes[i].Width,
+                    //(int)document.PageSizes[i].Height,
+                    //dpiX, dpiY,
+                    w,
+                    h,
+                    100, 100,
+                    false))
                 {
-                    image.Save(Path.Combine(path, "Page " + i + ".png"));
+                    //image.Save(Path.Combine(path, "Page " + i + ".png"));
+
+                    image.Save(Path.Combine(path, (i + 1) + ".jpg"), ImageFormat.Jpeg);
+
+
+
+                    this.Text = i.ToString();
                 }
             }
         }
@@ -331,8 +354,8 @@ namespace PdfiumViewer.Demo
                     pdfViewer1.Document = form.Document;
                 }
             }
-		}
-			
+        }
+
         private void informationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PdfInformation info = pdfViewer1.Document.GetInformation();
@@ -347,7 +370,7 @@ namespace PdfiumViewer.Demo
             sz.AppendLine($"Modified Date: {info.ModificationDate}");
 
             MessageBox.Show(sz.ToString(), "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-		}	
+        }
 
         private void _getTextFromPage_Click(object sender, EventArgs e)
         {
@@ -384,5 +407,39 @@ namespace PdfiumViewer.Demo
             this.WindowState = FormWindowState.Maximized;
             txt.Width = Screen.PrimaryScreen.WorkingArea.Width / 2;
         }
+
+        private void convertToImageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var document = pdfViewer1.Document;
+            int i = int.Parse(_page.Text);
+            int w = this.Width;
+            int h = (int)((w * document.PageSizes[i].Height) / document.PageSizes[i].Width);
+            using (var image = document.Render(i,
+                //(int)document.PageSizes[i].Width,
+                //(int)document.PageSizes[i].Height,
+                w,
+                h,
+                100, 100, false))
+            {
+                //image.Save("Page " + i + ".png");
+
+                image.Save(i + ".jpg", ImageFormat.Jpeg);
+
+                using (var ms = new MemoryStream())
+                {
+                    image.Save(ms, ImageFormat.Jpeg);
+                    var raw = ms.ToArray();
+
+                    using (var m2 = new MemoryStream())
+                    {
+                        using (GZipStream gz = new GZipStream(m2, CompressionMode.Compress, false))
+                            gz.Write(raw, 0, raw.Length);
+                        var zip = m2.ToArray();
+                        float k = (zip.Length / raw.Length) * 100;
+                    }
+                }
+            }
+        }
+        
     }
 }
