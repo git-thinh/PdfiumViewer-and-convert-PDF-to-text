@@ -542,7 +542,9 @@ namespace PdfiumViewer
         /// <returns>A collection with the links on the page.</returns>
         public PdfPageLinks GetPageLinks(int page, Size size)
         {
-            return _file.GetPageLinks(page, size);
+            if (_file != null)
+                return _file.GetPageLinks(page, size);
+            return null;
         }
 
         /// <summary>
