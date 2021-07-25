@@ -1,0 +1,10 @@
+D:\pdf\PdfiumViewer-and-convert-PDF-to-text\form452\obj\Debug\form452.Properties.Resources.resources
+D:\pdf\PdfiumViewer-and-convert-PDF-to-text\form452\obj\Debug\form452.csproj.GenerateResource.cache
+D:\pdf\PdfiumViewer-and-convert-PDF-to-text\form452\obj\Debug\form452.csproj.CoreCompileInputs.cache
+D:\pdf\PdfiumViewer-and-convert-PDF-to-text\form452\bin\Debug\form452.exe.config
+D:\pdf\PdfiumViewer-and-convert-PDF-to-text\form452\bin\Debug\form452.exe
+D:\pdf\PdfiumViewer-and-convert-PDF-to-text\form452\bin\Debug\form452.pdb
+D:\pdf\PdfiumViewer-and-convert-PDF-to-text\form452\obj\Debug\form452.exe
+D:\pdf\PdfiumViewer-and-convert-PDF-to-text\form452\obj\Debug\form452.pdb
+D:\pdf\PdfiumViewer-and-convert-PDF-to-text\form452\bin\Debug\x86\pdfium.dll
+D:\pdf\PdfiumViewer-and-convert-PDF-to-text\form452\bin\Debug\x64\pdfium.dll
